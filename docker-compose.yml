@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: always
+    environment:
+      - REDIS_PASSWORD=201999
+
+  bot:
+    build: .
+    container_name: bot
+    depends_on:
+      - redis
+    restart: always
+    environment:
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+      - SPRING_REDIS_PASSWORD=201999
+      - TELEGRAM_BOT_TOKEN=8113476375:AAG57lfWCnofnUCQqzWinYd3ZF2KQpYTDwc
+      - TELEGRAM_ADMIN_CHAT_ID=476806479
+    ports:
+      - "8080:8080"
+
+volumes:
+  redis_data:
