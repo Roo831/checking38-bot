@@ -15,9 +15,11 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.File;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.User;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Optional;
 
 @Slf4j
 @Component
@@ -104,7 +106,9 @@ public class MyBot extends TelegramLongPollingBot {
     private void processTextMessage(Message message) {
         String text = message.getText().toLowerCase();
         String chatTitle = message.getChat().getTitle() != null ? message.getChat().getTitle() : "private_chat";
-        String username = message.getFrom().getUserName() != null ? message.getFrom().getUserName() : botUsername;
+        String username = Optional.ofNullable(message.getFrom())
+                .map(User::getUserName)
+                .orElse("unknown_user");;
 
         keywordService.findFirst(text).ifPresent(keyword -> {
             String redisKey = "%s:%s:%d".formatted(
@@ -117,7 +121,7 @@ public class MyBot extends TelegramLongPollingBot {
             String notification = formatterService.formatForAdmin(chatTitle, message.getMessageId(), message.getChatId(), keyword, username, text);
 
             matchRepository.saveMatch(redisKey, redisValue);
-            sendToAdmin("Совпадение!\n" + notification);
+            sendToAdmin(notification);
         });
     }
 
