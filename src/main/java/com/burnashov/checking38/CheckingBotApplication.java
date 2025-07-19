@@ -10,9 +10,9 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @SpringBootApplication
 @Slf4j
-public class BogdanchikApplication {
+public class CheckingBotApplication {
     public static void main(String[] args) {
-        ConfigurableApplicationContext ctx = SpringApplication.run(BogdanchikApplication.class, args);
+        ConfigurableApplicationContext ctx = SpringApplication.run(CheckingBotApplication.class, args);
 
         TelegramBotsApi botsApi = ctx.getBean(TelegramBotsApi.class);
         MyBot bot = ctx.getBean(MyBot.class);
