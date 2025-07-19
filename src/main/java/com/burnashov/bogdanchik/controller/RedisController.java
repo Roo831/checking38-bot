@@ -1,8 +1,13 @@
 package com.burnashov.bogdanchik.controller;
 
+import com.burnashov.bogdanchik.MyBot;
+import com.burnashov.bogdanchik.service.MatchStorageService;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.burnashov.bogdanchik.dto.RedisEntryDto;
@@ -15,22 +20,14 @@ import java.util.Set;
 @RestController
 @RequestMapping("/redis")
 @RequiredArgsConstructor
+@Tag(name = "Redis хранилище совпадений", description = "Работа с совпадениями в Redis")
 public class RedisController {
 
-    private final StringRedisTemplate redisTemplate;
+    private final MatchStorageService storageService;
 
     @GetMapping("/all")
-    public List<RedisEntryDto> getAllKeysAndValues() {
-        List<RedisEntryDto> result = new ArrayList<>();
-
-        Set<String> keys = redisTemplate.keys("*");
-
-        if (keys != null) {
-            for (String key : keys) {
-                String value = redisTemplate.opsForValue().get(key);
-                result.add(new RedisEntryDto(key, value));
-            }
-        }
-        return result;
+    @ApiResponse(responseCode = "200", description = "Список всех записей")
+    public List<RedisEntryDto> getAll() {
+        return storageService.findAll();
     }
 }
