@@ -1,3 +1,5 @@
 package com.burnashov.bogdanchik.dto;
 
-public record RedisEntryDto(String key, String value) {}
+import io.swagger.v3.oas.annotations.media.Schema;
+
+public record RedisEntryDto(@Schema(description = "Ключ в Redis") String key, @Schema(description = "Значение в Redis") String value) {}
