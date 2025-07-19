@@ -1,10 +1,10 @@
-package com.burnashov.bogdanchik;
+package com.burnashov.checking38;
 
-import com.burnashov.bogdanchik.repository.MatchRepository;
-import com.burnashov.bogdanchik.service.ExcelProcessingService;
-import com.burnashov.bogdanchik.service.KeywordService;
-import com.burnashov.bogdanchik.service.MatchFormatterService;
-import com.burnashov.bogdanchik.service.MatchStorageService;
+import com.burnashov.checking38.repository.MatchRepository;
+import com.burnashov.checking38.service.ExcelProcessingService;
+import com.burnashov.checking38.service.KeywordService;
+import com.burnashov.checking38.service.MatchFormatterService;
+import com.burnashov.checking38.service.MatchStorageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

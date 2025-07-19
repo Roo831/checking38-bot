@@ -1,4 +1,4 @@
-package com.burnashov.bogdanchik.service;
+package com.burnashov.checking38.service;
 
 import org.springframework.stereotype.Service;
 

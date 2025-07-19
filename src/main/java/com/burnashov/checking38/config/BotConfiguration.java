@@ -1,4 +1,4 @@
-package com.burnashov.bogdanchik.config;
+package com.burnashov.checking38.config;
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;

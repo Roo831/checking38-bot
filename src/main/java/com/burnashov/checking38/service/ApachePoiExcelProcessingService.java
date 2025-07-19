@@ -1,4 +1,4 @@
-package com.burnashov.bogdanchik.service;
+package com.burnashov.checking38.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

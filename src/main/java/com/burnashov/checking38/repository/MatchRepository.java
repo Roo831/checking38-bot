@@ -1,6 +1,6 @@
-package com.burnashov.bogdanchik.repository;
+package com.burnashov.checking38.repository;
 
-import com.burnashov.bogdanchik.dto.RedisEntryDto;
+import com.burnashov.checking38.dto.RedisEntryDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;

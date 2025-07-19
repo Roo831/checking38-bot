@@ -1,8 +1,7 @@
-package com.burnashov.bogdanchik.service;
+package com.burnashov.checking38.service;
 
-import com.burnashov.bogdanchik.MyBot;
-import com.burnashov.bogdanchik.dto.RedisEntryDto;
-import com.burnashov.bogdanchik.repository.MatchRepository;
+import com.burnashov.checking38.dto.RedisEntryDto;
+import com.burnashov.checking38.repository.MatchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
