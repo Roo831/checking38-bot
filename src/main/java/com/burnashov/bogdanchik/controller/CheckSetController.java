@@ -1,6 +1,5 @@
 package com.burnashov.bogdanchik.controller;
 
-import com.burnashov.bogdanchik.KeywordLoader;
 import com.burnashov.bogdanchik.service.InMemoryKeywordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

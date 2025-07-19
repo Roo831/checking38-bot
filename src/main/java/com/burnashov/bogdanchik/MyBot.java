@@ -1,9 +1,10 @@
 package com.burnashov.bogdanchik;
 
-import com.burnashov.bogdanchik.repository.MatchStorage;
+import com.burnashov.bogdanchik.repository.MatchRepository;
 import com.burnashov.bogdanchik.service.ExcelProcessingService;
 import com.burnashov.bogdanchik.service.KeywordService;
 import com.burnashov.bogdanchik.service.MatchFormatterService;
+import com.burnashov.bogdanchik.service.MatchStorageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,8 +26,9 @@ public class MyBot extends TelegramLongPollingBot {
 
     private final KeywordService keywordService;
     private final ExcelProcessingService excelProcessingService;
-    private final MatchStorage matchStorage;
+    private final MatchRepository matchRepository;
     private final MatchFormatterService formatterService;
+    private final MatchStorageService storageService;
 
     @Value("${telegrambots.bots.username}")
     private String botUsername;
@@ -61,6 +63,13 @@ public class MyBot extends TelegramLongPollingBot {
         }
 
         if (message.hasText()) {
+
+            String text = message.getText().trim();
+            if (text.startsWith("/username ") && isAdmin(message)) {
+                String username = text.substring("/username ".length()).trim();
+               sendToAdmin(storageService.notifyAdminWithMatches(username));
+                return;
+            }
             processTextMessage(message);
         }
     }
@@ -107,7 +116,7 @@ public class MyBot extends TelegramLongPollingBot {
             String redisValue = formatterService.formatForRedis(chatTitle, message.getMessageId(), message.getChatId(), keyword, username, text);
             String notification = formatterService.formatForAdmin(chatTitle, message.getMessageId(), message.getChatId(), keyword, username, text);
 
-            matchStorage.saveMatch(redisKey, redisValue);
+            matchRepository.saveMatch(redisKey, redisValue);
             sendToAdmin("Совпадение!\n" + notification);
         });
     }
