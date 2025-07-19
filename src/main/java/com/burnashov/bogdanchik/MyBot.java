@@ -117,7 +117,7 @@ public class MyBot extends TelegramLongPollingBot {
             String notification = formatterService.formatForAdmin(chatTitle, message.getMessageId(), message.getChatId(), keyword, username, text);
 
             matchRepository.saveMatch(redisKey, redisValue);
-            sendToAdmin("Совпадение!\n" + notification);
+            sendToAdmin(notification);
         });
     }
 

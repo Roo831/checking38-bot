@@ -21,7 +21,6 @@ import java.util.Set;
 public class RedisController {
 
     private final MatchStorageService storageService;
-    private final MyBot bot;
 
     @GetMapping("/all")
     public List<RedisEntryDto> getAll() {
