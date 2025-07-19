@@ -19,7 +19,7 @@ public class BogdanchikApplication {
 
         try {
             botsApi.registerBot(bot);
-            System.out.println("Bot registered successfully");
+            System.out.println("Bot registered successfully. Version 0.0.2");
         } catch (TelegramApiException e) {
             e.printStackTrace();
             log.info(e.getMessage());
