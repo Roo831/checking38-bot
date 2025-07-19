@@ -1,8 +1,11 @@
 package com.burnashov.bogdanchik.controller;
 
+import com.burnashov.bogdanchik.MyBot;
+import com.burnashov.bogdanchik.service.MatchStorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.burnashov.bogdanchik.dto.RedisEntryDto;
@@ -17,20 +20,11 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class RedisController {
 
-    private final StringRedisTemplate redisTemplate;
+    private final MatchStorageService storageService;
+    private final MyBot bot;
 
     @GetMapping("/all")
-    public List<RedisEntryDto> getAllKeysAndValues() {
-        List<RedisEntryDto> result = new ArrayList<>();
-
-        Set<String> keys = redisTemplate.keys("*");
-
-        if (keys != null) {
-            for (String key : keys) {
-                String value = redisTemplate.opsForValue().get(key);
-                result.add(new RedisEntryDto(key, value));
-            }
-        }
-        return result;
+    public List<RedisEntryDto> getAll() {
+        return storageService.findAll();
     }
 }
