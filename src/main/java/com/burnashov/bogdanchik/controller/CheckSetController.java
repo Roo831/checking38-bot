@@ -1,6 +1,7 @@
 package com.burnashov.bogdanchik.controller;
 
 import com.burnashov.bogdanchik.KeywordLoader;
+import com.burnashov.bogdanchik.service.InMemoryKeywordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +15,11 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class CheckSetController {
 
-     private final KeywordLoader keywordLoader;
+     private final InMemoryKeywordService keywordService;
 
     @GetMapping
     public String checkSet() {
-        Set<String> keywords = keywordLoader.getAll();
+        Set<String> keywords = keywordService.getKeywords();
         if (keywords.isEmpty()) {
             return "Сет пустой. Всего ключевых слов: 0";
         }
