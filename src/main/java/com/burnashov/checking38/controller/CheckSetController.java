@@ -1,8 +1,7 @@
-package com.burnashov.bogdanchik.controller;
+package com.burnashov.checking38.controller;
 
-import com.burnashov.bogdanchik.service.InMemoryKeywordService;
+import com.burnashov.checking38.service.InMemoryKeywordService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

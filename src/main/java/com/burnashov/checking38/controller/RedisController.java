@@ -1,21 +1,16 @@
-package com.burnashov.bogdanchik.controller;
+package com.burnashov.checking38.controller;
 
-import com.burnashov.bogdanchik.MyBot;
-import com.burnashov.bogdanchik.service.MatchStorageService;
+import com.burnashov.checking38.service.MatchStorageService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.burnashov.bogdanchik.dto.RedisEntryDto;
+import com.burnashov.checking38.dto.RedisEntryDto;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/redis")

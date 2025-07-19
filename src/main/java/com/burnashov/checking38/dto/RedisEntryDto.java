@@ -1,4 +1,4 @@
-package com.burnashov.bogdanchik.dto;
+package com.burnashov.checking38.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
