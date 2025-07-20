@@ -5,6 +5,7 @@ import com.burnashov.checking38.service.ExcelProcessingService;
 import com.burnashov.checking38.service.KeywordService;
 import com.burnashov.checking38.service.MatchFormatterService;
 import com.burnashov.checking38.service.MatchStorageService;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +20,9 @@ import org.telegram.telegrambots.meta.api.objects.User;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Slf4j
 @Component
@@ -39,7 +42,17 @@ public class MyBot extends TelegramLongPollingBot {
     private String botToken;
 
     @Value("${telegrambots.bots.admin.chat.id}")
-    private Long adminChatId;
+    private String adminChatIdsString;
+
+    private final Set<Long> adminChatIds = new HashSet<>();
+
+    @PostConstruct
+    public void executeAdminsId() {
+        String[] ids = adminChatIdsString.split("\\s+");
+        for (String id : ids) {
+            adminChatIds.add(Long.parseLong(id));
+        }
+    }
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -69,7 +82,7 @@ public class MyBot extends TelegramLongPollingBot {
             String text = message.getText().trim();
             if (text.startsWith("/username ") && isAdmin(message)) {
                 String username = text.substring("/username ".length()).trim();
-               sendToAdmin(storageService.notifyAdminWithMatches(username));
+                sendToAdmin(storageService.getMatchesByName(username));
                 return;
             }
             processTextMessage(message);
@@ -77,7 +90,13 @@ public class MyBot extends TelegramLongPollingBot {
     }
 
     private boolean isAdmin(Message message) {
-        return message.getFrom() != null && message.getFrom().getId().equals(adminChatId);
+        for (Long id : adminChatIds) {
+
+            if (message.getFrom() != null && message.getFrom().getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void handleExcel(Message message) {
@@ -108,7 +127,8 @@ public class MyBot extends TelegramLongPollingBot {
         String chatTitle = message.getChat().getTitle() != null ? message.getChat().getTitle() : "private_chat";
         String username = Optional.ofNullable(message.getFrom())
                 .map(User::getUserName)
-                .orElse("unknown_user");;
+                .orElse("unknown_user");
+        ;
 
         keywordService.findFirst(text).ifPresent(keyword -> {
             String redisKey = "%s:%s:%d".formatted(
@@ -126,9 +146,13 @@ public class MyBot extends TelegramLongPollingBot {
     }
 
     private void sendToAdmin(String text) {
-        SendMessage message = new SendMessage(adminChatId.toString(), text);
+
         try {
-            execute(message);
+            for (Long id : adminChatIds) {
+                SendMessage message = new SendMessage(id.toString(), text);
+                execute(message);
+            }
+
         } catch (Exception e) {
             log.error("Ошибка отправки сообщения администратору", e);
         }

@@ -21,7 +21,7 @@ public class MatchStorageService {
         return matchRepository.findByUsername(username);
     }
 
-    public String notifyAdminWithMatches(String username) {
+    public String getMatchesByName(String username) {
         List<RedisEntryDto> matches = findByUsername(username);
         StringBuilder message = new StringBuilder("Найденные записи для пользователя @" + username + ":\n\n");
         for (RedisEntryDto dto : matches) {
