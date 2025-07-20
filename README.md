@@ -26,7 +26,7 @@
 
 ```env
 TELEGRAM_BOT_TOKEN=your_telegram_bot_token
-TELEGRAM_ADMIN_CHAT_ID=your_admin_chat_id
+TELEGRAM_ADMIN_CHAT_ID=your_admin_chat_id1 your_admin_chat_id2 your_admin_chat_id3 your_admin_chat_id4
 ```
 
 ### 2. Соберите проект:
@@ -57,13 +57,13 @@ docker-compose up --build
 
 ## ⚙Переменные окружения
 
-| Переменная               | Описание                        |
-|--------------------------|---------------------------------|
-| `TELEGRAM_BOT_TOKEN`     | Токен Telegram-бота             |
-| `TELEGRAM_ADMIN_CHAT_ID`| ID Telegram-чата администратора |
-| `SPRING_REDIS_HOST`      | Redis хост (по умолчанию `redis`) |
-| `SPRING_REDIS_PORT`      | Redis порт (по умолчанию `6379`) |
-| `SPRING_REDIS_PASSWORD`  | Redis пароль (по умолчанию `201999`) |
+| Переменная               | Описание                                                   |
+|--------------------------|------------------------------------------------------------|
+| `TELEGRAM_BOT_TOKEN`     | Токен Telegram-бота                                        |
+| `TELEGRAM_ADMIN_CHAT_ID`| Перечисление через пробел ID Telegram-чата администраторов |
+| `SPRING_REDIS_HOST`      | Redis хост (по умолчанию `redis`)                          |
+| `SPRING_REDIS_PORT`      | Redis порт (по умолчанию `6379`)                           |
+| `SPRING_REDIS_PASSWORD`  | Redis пароль (по умолчанию `201999`)                       |
 
 ---
 
