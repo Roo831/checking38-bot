@@ -69,7 +69,7 @@ public class MyBot extends TelegramLongPollingBot {
             String text = message.getText().trim();
             if (text.startsWith("/username ") && isAdmin(message)) {
                 String username = text.substring("/username ".length()).trim();
-               sendToAdmin(storageService.notifyAdminWithMatches(username));
+               sendToAdmin(storageService.getMatchesByName(username));
                 return;
             }
             processTextMessage(message);
